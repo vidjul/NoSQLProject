@@ -13,7 +13,7 @@ client.search({
     body: {
         query: {
             match: {
-                "fields.text.title": "RED LION"
+                "fields.text.title": "RED LION 2"
             }
         }
     }
