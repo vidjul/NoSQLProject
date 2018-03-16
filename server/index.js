@@ -1,24 +1,44 @@
 const elasticsearch = require('elasticsearch');
+const express = require('express');
+const app = express();
 
-// Initialize client connection instance
+app.use(require('./routes'));
 
-const client = new elasticsearch.Client({
-    host: 'localhost:9200',
-    log: 'trace'
-});
+app.listen(3000, () => {
+    console.log('Listening on port 3000');
+})
 
-client.search({
-    index: 'reuters',
-    type: 'article',
-    body: {
-        query: {
-            match: {
-                "fields.text.title": "RED LION 2"
-            }
-        }
-    }
-}).then(function (resp) {
-    var hits = resp.hits.hits;
-}, function (err) {
-    console.trace(err.message);
-});
+
+
+// let match = {
+//     "fields.text.title": "RED LION 2"
+// };
+
+// // let match = {
+// //     'match_all': {}
+// // }
+
+// client.search({
+//     'index': 'reuters',
+//     'type': 'article',
+//     'body': {
+//         'query': {
+//             match
+//         },
+//         'size': 5,
+//         'aggs': {
+//             "nb_distinct": {
+//                 "cardinality": {
+//                     "field": "fields.places.keyword"
+//                 }
+//             }
+//         }
+//     }
+// }).then((resp) => {
+//     var hits = resp.hits.hits.forEach((hit) => {
+//         console.log(hit._source.fields.text.title);
+//     });
+//     console.log(resp.aggregations.nb_distinct.value);
+// }, (err) => {
+//     console.trace(err.message);
+// });
