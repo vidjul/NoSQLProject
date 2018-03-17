@@ -1,33 +1,47 @@
-import React from 'react';
+import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-class DatepickerComponent extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      startDate: moment()
-    };
-    this.handleChange = this.handleChange.bind(this);
+class InputDate extends Component {
+  render() {
+    return (
+      <InputGroup>
+      <InputGroupAddon addonType="append">
+        <InputGroupText>Date</InputGroupText>
+      </InputGroupAddon>
+      <Input onClick={this.props.onClick} value={this.props.value}/>
+    </InputGroup>
+    )
   }
+}
 
-  handleChange(date) {
-    this.setState({
-      startDate: date
+class DatepickerComponent extends Component {
+  constructor(props) {
+    moment.updateLocale('en', {
+      monthsShort: [
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
+      ]
     });
+    super(props)
   }
 
   render() {
-    return <DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange}
-        dateFormat="DD/MM/YYYY"
-    />;
+    return (
+      <DatePicker
+        openToDate={moment('1987-02-26')}
+        customInput={<InputDate />}
+        selected={this.props.date}
+        onChange={this.props.onFieldChange}
+        dateFormat="D-MMM-YYYY"
+        minDate={moment('1987-02-26')}
+      />);
   }
 }
 

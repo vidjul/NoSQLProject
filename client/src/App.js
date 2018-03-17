@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import InputComponent from './Components/InputComponent';
-import DatepickerComponent from './Components/DatepickerComponent';
-import { Container, Row } from 'reactstrap';
+import InputForm from './Components/InputForm'
 
 class App extends Component {
   render() {
@@ -16,13 +14,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <Container className="text-center">
-          <Row>&emsp;Date :&emsp; <DatepickerComponent /></Row><br />
-          <InputComponent fieldType="Exchanges" /><br />
-          <InputComponent fieldType="Orgs" /><br />
-          <InputComponent fieldType="People" /><br />
-          <InputComponent fieldType="Places" />
-        </Container>
+        <InputForm />
       </div>
     );
   }
