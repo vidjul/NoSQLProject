@@ -9,6 +9,8 @@
   "author": "David Chasseray Sajeevan Puvikaran Vidushan Chooriyakumaran",
   "license": "ISC",
   "dependencies": {
-    "elasticsearch": "^14.2.0"
+    "body-parser": "^1.18.2",
+    "elasticsearch": "^14.2.0",
+    "express": "^4.16.3"
   }
 }
