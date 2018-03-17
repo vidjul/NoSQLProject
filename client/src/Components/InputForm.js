@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import InputComponent from './InputComponent';
 import DatepickerComponent from './DatepickerComponent';
 import { Container, Row, Col, Button } from 'reactstrap';
@@ -10,39 +11,106 @@ class InputForm extends Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDate = this.handleDate.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         this.state = {
-            date: null,
-            exchanges: '',
-            orgs: '',
-            people: '',
-            places: '',
+            date: {
+                value: null,
+                queryType: 'should',
+            },
+            exchanges: {
+                value: '',
+                queryType: 'should'
+            },
+            orgs: {
+                value: '',
+                queryType: 'should'
+            },
+            people: {
+                value: '',
+                queryType: 'should'
+            },
+            places: {
+                value: '',
+                queryType: 'should'
+            },
         };
     }
 
     handleChange(e) {
-        this.setState({ [e.target.name.toLowerCase()]: e.target.value });
+        const prevType = this.state[e.target.name.toLowerCase()].queryType
+        this.setState({ [e.target.name.toLowerCase()]: { 'value': e.target.value, 'queryType': prevType } });
+    }
+
+    handleSelect(e) {
+        const prevValue = this.state[e.target.name.toLowerCase()].value;
+        this.setState({ [e.target.name.toLowerCase()]: { 'value': prevValue, 'queryType': e.target.textContent } })
     }
 
     handleDate(date) {
-        this.setState({ date: date })
+        const prevType = this.state.date.queryType
+        this.setState({ date: { 'value': date, 'queryType': prevType } })
     }
 
     handleSearch() {
-        console.log(this.state);
-        console.log(this.state.date.format('D-MMM-YYYY'));
+        let request = { 'must': [], 'should': [] };
+        let currState = this.state;
+        for (let key in this.state) {
+            if (this.state.hasOwnProperty(key)) {
+                if (this.state[key].queryType === 'must') {
+                    if (key === 'date') {
+                        if (this.state[key].value) {
+                            request.must.push([key, this.state[key].value.format('D-MMM-YYYY'), 0]);
+                        }
+                        else {
+                            request.must.push([key, "", 0]);
+                        }
+                    }
+                    else {
+                        request.must.push([key, this.state[key].value, 0]);
+                    }
+
+                }
+                else {
+                    if (key === 'date') {
+                        if (this.state[key].value) {
+                            request.should.push([key, this.state[key].value.format('D-MMM-YYYY'), 0]);
+                        }
+                        else {
+                            request.should.push([key, "", 0]);
+                        }
+                    }
+                    else {
+                        request.should.push([key, this.state[key].value, 0])
+                    }
+                }
+            }
+        }
+        axios.post('/article', request)
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log(err));
     }
 
     render() {
         return (
             <Container>
                 <Row>
-                    <Col>
-                        <DatepickerComponent date={this.state.date} onFieldChange={this.handleDate} />
-                    </Col>
-                    <Col><InputComponent fieldType="Exchanges" onFieldChange={this.handleChange} /></Col>
-                    <Col><InputComponent fieldType="Orgs" onFieldChange={this.handleChange} /></Col>
-                    <Col><InputComponent fieldType="People" onFieldChange={this.handleChange} /></Col>
-                    <Col><InputComponent fieldType="Places" onFieldChange={this.handleChange} /></Col>
+                    <DatepickerComponent date={this.state.date.value} onFieldChange={this.handleDate} onSelectChange={this.handleSelect} dropValue={this.state.date.queryType} />
+                </Row>
+                <br />
+                <Row>
+                    <InputComponent fieldType="Exchanges" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.exchanges.queryType} />
+                </Row>
+                <br />
+                <Row>
+                    <InputComponent fieldType="Orgs" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.orgs.queryType} />
+                </Row>
+                <br />
+                <Row>
+                    <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
+                </Row>
+                <br />
+                <Row>
+                    <InputComponent fieldType="Places" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.places.queryType} />
                 </Row>
                 <br />
                 <Row>

@@ -1,7 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import {
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroupButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -9,14 +18,47 @@ import 'react-datepicker/dist/react-datepicker.css';
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 class InputDate extends Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleDropDown = this.toggleDropDown.bind(this);
+    this.toggleSplit = this.toggleSplit.bind(this);
+    this.state = {
+      dropdownOpen: false,
+      splitButtonOpen: false,
+    };
+  }
+
+  toggleDropDown() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  toggleSplit() {
+    this.setState({
+      splitButtonOpen: !this.state.splitButtonOpen
+    });
+  }
+
   render() {
     return (
       <InputGroup>
-      <InputGroupAddon addonType="append">
-        <InputGroupText>Date</InputGroupText>
-      </InputGroupAddon>
-      <Input onClick={this.props.onClick} value={this.props.value}/>
-    </InputGroup>
+        <InputGroupAddon addonType="append">
+          <InputGroupText>Date</InputGroupText>
+        </InputGroupAddon>
+        <Input onClick={this.props.onClick} value={this.props.value} />
+        <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+          <DropdownToggle caret>
+            {this.props.dropValue.toUpperCase()}
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem header>Bool query option</DropdownItem>
+            <DropdownItem name='Date' onClick={this.props.onSelectChange}>must</DropdownItem>
+            <DropdownItem name='Date' onClick={this.props.onSelectChange}>should</DropdownItem>
+          </DropdownMenu>
+        </InputGroupButtonDropdown>
+      </InputGroup>
     )
   }
 }
@@ -36,7 +78,7 @@ class DatepickerComponent extends Component {
     return (
       <DatePicker
         openToDate={moment('1987-02-26')}
-        customInput={<InputDate />}
+        customInput={<InputDate dropValue={this.props.dropValue} onSelectChange={this.props.onSelectChange} />}
         selected={this.props.date}
         onChange={this.props.onFieldChange}
         dateFormat="D-MMM-YYYY"

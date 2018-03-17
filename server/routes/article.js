@@ -18,8 +18,8 @@ router.post('/', (req, res) => {
     let limit = parseInt(req.query.limit, 10);
     if (isNaN(limit)) {
         limit = 10;
-    } else if (limit > 50) {
-        limit = 50;
+    } else if (limit > 21495) {
+        limit = 21495;
     } else if (limit < 1) {
         limit = 1;
     }
