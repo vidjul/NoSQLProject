@@ -13,7 +13,7 @@ class InputForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleDate = this.handleDate.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
-        this.searchRes = null;
+        this.onPaginatedSearch = this.onPaginatedSearch.bind(this);
         this.state = {
             date: {
                 value: null,
@@ -35,7 +35,9 @@ class InputForm extends Component {
                 value: '',
                 queryType: 'should'
             },
-            searchRes: null
+            searchRes: null,
+            pageCount: 1,
+            request: ''
         };
     }
 
@@ -57,7 +59,7 @@ class InputForm extends Component {
     handleSearch() {
         let request = { 'must': [], 'should': [] };
         for (let key in this.state) {
-            if (this.state.hasOwnProperty(key) && key !== 'searchRes') {
+            if (this.state.hasOwnProperty(key) && !['searchRes', 'pageCount', 'request'].includes(key)) {
                 if (this.state[key].queryType === 'must') {
                     if (key === 'date') {
                         if (this.state[key].value) {
@@ -87,11 +89,21 @@ class InputForm extends Component {
                 }
             }
         }
+        this.setState({request: request});
         axios.post('/article', request)
             .then((res) => {
                 this.setState({searchRes: res.data});
             })
             .catch((err) => console.log(err));
+    }
+
+    onPaginatedSearch() {
+        axios.post(`/article/?page=${this.state.pageCount}`, this.state.request)
+        .then((res) => {
+            this.setState({searchRes: this.state.searchRes.concat(res.data)});
+        })
+        .catch((err) => console.log(err));
+        this.setState({pageCount: this.state.pageCount + 1})
     }
 
     render() {
@@ -123,7 +135,7 @@ class InputForm extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <ArticleList searchRes={this.state.searchRes} />
+                    <ArticleList searchRes={this.state.searchRes} onPaginatedSearch={this.onPaginatedSearch} />
                 </Row>
 
             </Container>
