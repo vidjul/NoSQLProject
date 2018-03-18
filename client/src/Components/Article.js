@@ -41,7 +41,7 @@ class Article extends Component {
           
         <Button color="primary" onClick={this.toggle}  style={{ marginBottom: '1rem' }}>{this.props.infos.title}</Button>
         <Collapse isOpen={this.state.collapse}>
-          <Card>
+          <Card style={{ marginBottom: '1rem' }}>
           <CardTitle>{this.props.infos.title}</CardTitle>
           <CardSubtitle>{this.props.infos.dateline}</CardSubtitle>
             <CardBody>{this.props.infos.body}</CardBody>
