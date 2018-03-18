@@ -3,7 +3,7 @@ import axios from 'axios';
 import InputComponent from './InputComponent';
 import DatepickerComponent from './DatepickerComponent';
 import { Container, Row, Col, Button } from 'reactstrap';
-
+import ArticleList from './ArticleList';
 
 class InputForm extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ class InputForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleDate = this.handleDate.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
+        this.searchRes = null;
         this.state = {
             date: {
                 value: null,
@@ -86,7 +87,7 @@ class InputForm extends Component {
             }
         }
         axios.post('/article', request)
-            .then((res) => console.log(res.data))
+            .then((res) => {console.log(res.data); this.searchRes=res.data;this.render();})
             .catch((err) => console.log(err));
     }
 
@@ -118,6 +119,10 @@ class InputForm extends Component {
                         <Button onClick={this.handleSearch}>Search</Button>
                     </Col>
                 </Row>
+                <Row>
+                    <ArticleList searchRes={this.searchRes}/>
+                </Row>
+                
             </Container>
         );
     }
