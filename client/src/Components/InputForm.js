@@ -136,7 +136,8 @@ class InputForm extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <ArticleList searchRes={this.state.searchRes} />
+                    <ArticleList searchRes={this.state.searchRes} onPaginatedSearch={this.onPaginatedSearch} />
+
                     </Col>
                 </Row>
 
