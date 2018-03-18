@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Article from './Article';
 
-const ArticleList = (props) => {
-    if (props.searchRes !== null) {
-        var rows = [];
-        props.searchRes.forEach(element => {
-            rows.push(<div>
-                <Article infos={element._source.fields.text}/>
-            </div>);
-        });
-        return <div id="accordion">
-        {rows}
-    </div>;
+class ArticleList extends Component {
+    constructor(props) {
+        super(props);
     }
-    else {
-        return null;
+
+    render() {
+        if (this.props.searchRes !== null) {
+            let rows = [];
+            this.props.searchRes.forEach(element => {
+                rows.push(<div><Article infos={element._source.fields.text} /></div>);
+            });
+            return (
+                <div id="accordion">
+                {rows}
+                </div>
+            );
+        }
+        else {
+            return null;
+        }
     }
-};
+}
+
 export default ArticleList;

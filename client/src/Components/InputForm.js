@@ -35,6 +35,7 @@ class InputForm extends Component {
                 value: '',
                 queryType: 'should'
             },
+            searchRes: null
         };
     }
 
@@ -57,7 +58,7 @@ class InputForm extends Component {
         let request = { 'must': [], 'should': [] };
         let currState = this.state;
         for (let key in this.state) {
-            if (this.state.hasOwnProperty(key)) {
+            if (this.state.hasOwnProperty(key) && this.state[key] !== this.searchRes) {
                 if (this.state[key].queryType === 'must') {
                     if (key === 'date') {
                         if (this.state[key].value) {
@@ -88,7 +89,10 @@ class InputForm extends Component {
             }
         }
         axios.post('/article', request)
-            .then((res) => {console.log(res.data); this.searchRes=res.data;this.render();})
+            .then((res) => {
+                console.log(res.data);
+                this.setState({searchRes: res.data});
+            })
             .catch((err) => console.log(err));
     }
 
@@ -121,9 +125,9 @@ class InputForm extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <ArticleList searchRes={this.searchRes}/>
+                    <ArticleList searchRes={this.state.searchRes} />
                 </Row>
-                
+
             </Container>
         );
     }
