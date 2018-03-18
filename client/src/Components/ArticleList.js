@@ -3,11 +3,15 @@ import Article from './Article';
 
 const ArticleList = (props) => {
     if (props.searchRes !== null) {
-        var toReturn = <div> </div>;
+        var rows = [];
         props.searchRes.forEach(element => {
-            toReturn +=<div><Article infos={element._source.fields.text} /></div>;
-        })
-        return toReturn;
+            rows.push(<div>
+                <Article infos={element._source.fields.text}/>
+            </div>);
+        });
+        return <div id="accordion">
+        {rows}
+    </div>;
     }
     else {
         return null;

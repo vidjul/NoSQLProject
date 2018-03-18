@@ -5,6 +5,7 @@ import DatepickerComponent from './DatepickerComponent';
 import { Container, Row, Col, Button } from 'reactstrap';
 import ArticleList from './ArticleList';
 
+
 class InputForm extends Component {
     constructor(props) {
         super(props);
