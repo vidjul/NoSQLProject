@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import Article from './Article';
 
 class ArticleList extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         if (this.props.searchRes !== null) {
             let rows = [];
-            this.props.searchRes.forEach(element => {
-                rows.push(<div><Article infos={element._source.fields.text} /></div>);
+            this.props.searchRes.forEach((element, index) => {
+            rows.push(<Article infos={element._source.fields.text} key={index} />);
             });
             return (
                 <div id="accordion">

@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 
 class Article extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

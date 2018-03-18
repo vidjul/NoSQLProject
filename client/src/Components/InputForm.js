@@ -56,9 +56,8 @@ class InputForm extends Component {
 
     handleSearch() {
         let request = { 'must': [], 'should': [] };
-        let currState = this.state;
         for (let key in this.state) {
-            if (this.state.hasOwnProperty(key) && this.state[key] !== this.searchRes) {
+            if (this.state.hasOwnProperty(key) && key !== 'searchRes') {
                 if (this.state[key].queryType === 'must') {
                     if (key === 'date') {
                         if (this.state[key].value) {
@@ -90,7 +89,6 @@ class InputForm extends Component {
         }
         axios.post('/article', request)
             .then((res) => {
-                console.log(res.data);
                 this.setState({searchRes: res.data});
             })
             .catch((err) => console.log(err));
