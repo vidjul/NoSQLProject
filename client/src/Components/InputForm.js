@@ -68,7 +68,7 @@ class InputForm extends Component {
                 if (this.state[key].queryType === 'must') {
                     if (key === 'date') {
                         if (this.state[key].value) {
-                            request.must.push([key, this.state[key].value.format('D-MMM-YYYY'), 0]);
+                            request.must.push([key, this.state[key].value.format('D-MMM-YYYY'), 1]);
                         }
                         else {
                             request.must.push([key, "", 0]);
@@ -82,7 +82,7 @@ class InputForm extends Component {
                 else {
                     if (key === 'date') {
                         if (this.state[key].value) {
-                            request.should.push([key, this.state[key].value.format('D-MMM-YYYY'), 0]);
+                            request.should.push([key, this.state[key].value.format('D-MMM-YYYY'), 1]);
                         }
                         else {
                             request.should.push([key, "", 0]);
