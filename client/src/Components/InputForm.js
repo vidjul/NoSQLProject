@@ -20,11 +20,11 @@ class InputForm extends Component {
                 value: null,
                 queryType: 'should',
             },
-            exchanges: {
+            topic: {
                 value: '',
                 queryType: 'should'
             },
-            orgs: {
+            body: {
                 value: '',
                 queryType: 'should'
             },
@@ -115,11 +115,11 @@ class InputForm extends Component {
                 </Row>
                 <br />
                 <Row>
-                    <InputComponent fieldType="Exchanges" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.exchanges.queryType} />
+                    <InputComponent fieldType="Text.Topic" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.topic.queryType} />
                 </Row>
                 <br />
                 <Row>
-                    <InputComponent fieldType="Orgs" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.orgs.queryType} />
+                    <InputComponent fieldType="Body" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.body.queryType} />
                 </Row>
                 <br />
                 <Row>
