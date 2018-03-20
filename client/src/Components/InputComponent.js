@@ -36,11 +36,19 @@ class InputComponent extends Component {
     }
 
     render() {
+        let names = this.props.fieldType.split('.');
+        let name;
+        if (names.length > 1) {
+            name = names[1];
+        }
+        else {
+            name = this.props.fieldType;
+        }
         return (
             <div>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">
-                        <InputGroupText>{this.props.fieldType}</InputGroupText>
+                        <InputGroupText>{name}</InputGroupText>
                     </InputGroupAddon>
                     <Input name={this.props.fieldType} onChange={this.props.onFieldChange} />
                     <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
