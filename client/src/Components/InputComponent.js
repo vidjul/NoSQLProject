@@ -35,6 +35,33 @@ class InputComponent extends Component {
         });
     }
 
+    whatToShow(){
+        if(this.props.fieldType === 'Topics')
+        {
+            return "Topics mentionned in the article"
+        }
+        else if(this.props.fieldType === 'Text.Body')
+        {
+            return "Words contained in the Body"
+        }
+        else if(this.props.fieldType === 'Text.Title')
+        {
+            return "Words contained in the title"
+        }
+        else if(this.props.fieldType === 'Places')
+        {
+            return "Places concerned by the article"
+        }
+        else if(this.props.fieldType === 'People')
+        {
+            return "People concerned by the article"
+        }
+        else
+        {
+            return "Fulfill with what you want to search"
+        }
+    }
+
     render() {
         let names = this.props.fieldType.split('.');
         let name;
@@ -50,7 +77,7 @@ class InputComponent extends Component {
                     <InputGroupAddon  addonType="prepend">
                         <InputGroupText>{name}</InputGroupText>
                     </InputGroupAddon>
-                    <Input name={this.props.fieldType} onChange={this.props.onFieldChange} />
+                    <Input name={this.props.fieldType} onChange={this.props.onFieldChange} placeholder={this.whatToShow()} />
                     <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
                         <DropdownToggle caret>
                             {this.props.dropValue.toUpperCase()}

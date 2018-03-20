@@ -83,6 +83,7 @@ class DatepickerComponent extends Component {
         onChange={this.props.onFieldChange}
         dateFormat="D-MMM-YYYY"
         minDate={moment('1987-02-26')}
+        maxDate={moment('1987-10-20')}
       />);
   }
 }

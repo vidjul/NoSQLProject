@@ -118,12 +118,13 @@ class InputForm extends Component {
                     <DatepickerComponent date={this.state.date.value} onFieldChange={this.handleDate} onSelectChange={this.handleSelect} dropValue={this.state.date.queryType} />
                     </Col></Row>
                 <br />
+                
                 <Row><Col>
-                    <InputComponent fieldType="Text.Body" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.body'].queryType} />
+                    <InputComponent fieldType="Text.Title" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.title'].queryType} />
                 </Col></Row>
                 <br />
                 <Row><Col>
-                    <InputComponent fieldType="Text.Title" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.title'].queryType} />
+                    <InputComponent fieldType="Text.Body" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.body'].queryType} />
                 </Col></Row>
                 <br />
                 <Row><Col>
