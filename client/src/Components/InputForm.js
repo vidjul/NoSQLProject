@@ -6,6 +6,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import ArticleList from './ArticleList';
 
 
+
 class InputForm extends Component {
     constructor(props) {
         super(props);
@@ -136,8 +137,7 @@ class InputForm extends Component {
                 </Row>
                 <Row>
                     <Col>
-                    <ArticleList searchRes={this.state.searchRes} onPaginatedSearch={this.onPaginatedSearch} />
-
+                        <ArticleList searchRes={this.state.searchRes} onPaginatedSearch={this.onPaginatedSearch} />
                     </Col>
                 </Row>
 
