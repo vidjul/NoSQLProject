@@ -78,11 +78,11 @@ class InputComponent extends Component {
                         <InputGroupText>{name}</InputGroupText>
                     </InputGroupAddon>
                     <Input name={this.props.fieldType} onChange={this.props.onFieldChange} placeholder={this.whatToShow()} />
-                    <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-                        <DropdownToggle caret>
+                    <InputGroupButtonDropdown  addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+                        <DropdownToggle caret color="warning">
                             {this.props.dropValue.toUpperCase()}
                         </DropdownToggle>
-                        <DropdownMenu>
+                        <DropdownMenu >
                             <DropdownItem header>Bool query option</DropdownItem>
                             <DropdownItem name={this.props.fieldType} onClick={this.props.onSelectChange}>must</DropdownItem>
                             <DropdownItem name={this.props.fieldType} onClick={this.props.onSelectChange}>should</DropdownItem>

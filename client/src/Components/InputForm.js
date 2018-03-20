@@ -136,12 +136,12 @@ class InputForm extends Component {
                 </Col></Row>
                 <br />
                 <Row><Col>
-                    <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
+                    <InputComponent  fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
                 </Col></Row>
                 <br />
                 <Row>
                     <Col>
-                        <Button onClick={this.handleSearch} style={{ marginBottom: '1rem' }}>Search</Button>
+                        <Button color="success" onClick={this.handleSearch} style={{ marginBottom: '1rem' }}>Search</Button>
                     </Col>
                 </Row>
                 <Row>
