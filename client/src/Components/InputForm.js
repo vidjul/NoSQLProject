@@ -16,6 +16,10 @@ class InputForm extends Component {
         this.handleSelect = this.handleSelect.bind(this);
         this.onPaginatedSearch = this.onPaginatedSearch.bind(this);
         this.state = {
+            'text.title': {
+                value: '',
+                queryType: 'should'
+            },
             date: {
                 value: null,
                 queryType: 'should',
@@ -110,25 +114,29 @@ class InputForm extends Component {
     render() {
         return (
             <Container>
-                <Row>
+                <Row><Col>
                     <DatepickerComponent date={this.state.date.value} onFieldChange={this.handleDate} onSelectChange={this.handleSelect} dropValue={this.state.date.queryType} />
-                </Row>
+                    </Col></Row>
                 <br />
-                <Row>
-                    <InputComponent fieldType="Topics" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.topics.queryType} />
-                </Row>
-                <br />
-                <Row>
+                <Row><Col>
                     <InputComponent fieldType="Text.Body" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.body'].queryType} />
-                </Row>
+                </Col></Row>
                 <br />
-                <Row>
-                    <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
-                </Row>
+                <Row><Col>
+                    <InputComponent fieldType="Text.Title" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.title'].queryType} />
+                </Col></Row>
                 <br />
-                <Row>
+                <Row><Col>
                     <InputComponent fieldType="Places" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.places.queryType} />
-                </Row>
+                </Col></Row>
+                <br />
+                <Row><Col>
+                    <InputComponent fieldType="Topics" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.topics.queryType} />
+                </Col></Row>
+                <br />
+                <Row><Col>
+                    <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
+                </Col></Row>
                 <br />
                 <Row>
                     <Col>

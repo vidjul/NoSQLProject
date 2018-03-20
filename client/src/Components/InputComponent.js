@@ -47,7 +47,7 @@ class InputComponent extends Component {
         return (
             <div>
                 <InputGroup>
-                    <InputGroupAddon addonType="prepend">
+                    <InputGroupAddon  addonType="prepend">
                         <InputGroupText>{name}</InputGroupText>
                     </InputGroupAddon>
                     <Input name={this.props.fieldType} onChange={this.props.onFieldChange} />
