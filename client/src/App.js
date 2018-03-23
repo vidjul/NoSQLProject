@@ -4,6 +4,7 @@ import './App.css';
 import InputForm from './Components/InputForm'
 import NavB from './Components/NavB';
 import TabsNav from './Components/TabsNav';
+import Analysis from './Components/Analysis';
 
 class App extends Component {
   render() {
@@ -14,7 +15,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to our project</h1>
         </header>
         <NavB/>
-    <TabsNav search ={<InputForm/>} analysis={<div>not implemented yet</div>} />
+    <TabsNav search ={<InputForm/>} analysis={<Analysis/>} />
         
         
       </div>

@@ -42,13 +42,13 @@ export default class TabsNav extends React.Component {
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1" >
-                        <Row style={{ marginBottom: '1rem' }}/>
+                        <Row style={{ marginBottom: '1rem' }} />
                         <Row>
                             {this.props.search}
                         </Row>
                     </TabPane>
                     <TabPane tabId="2">
-                    <Row style={{ marginBottom: '1rem' }}/>
+                        <Row style={{ marginBottom: '1rem' }} />
                         <Row>
                             {this.props.analysis}
                         </Row>
