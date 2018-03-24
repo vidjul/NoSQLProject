@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router();
 
 router.use('/article', require('./article'));
-
+router.use('/analysis',require('./analysis'))
 router.get('/', (req,res) => {
-    res.send('<p> Wesh! </p>');
+    res.send('<p> This is our API (try /article or /analtics) </p>');
 });
 
 module.exports = router;
