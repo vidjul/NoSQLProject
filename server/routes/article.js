@@ -1,10 +1,22 @@
 const express = require('express');
 const queryJson = require('../queries/searchQuery');
+const mappingJson = require('../queries/mappingQuery');
 const client = require('../connection')
+const fs = require('fs');
 
 const router = express.Router();
 
+const reuters = JSON.parse(fs.readFileSync('reuters_elastic.json', 'utf8'));
+
+
 // Route: BASE_URL/article
+
+router.get('/populate', (req, res) => {
+    client.bulk({ body: reuters })
+        .then(() => client.indices.putMapping(mappingJson))
+        .then((resp) => res.send({'message': 'Data has been populated!'}))
+        .catch((err) => res.send(err))
+})
 
 router.post('/', (req, res) => {
 
@@ -63,7 +75,7 @@ router.post('/', (req, res) => {
             res.send(resp.hits.hits)
         })
         .catch((err) => {
-            res.send(err)
+            res.status(500).send(err)
         });
 });
 

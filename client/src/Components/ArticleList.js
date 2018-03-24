@@ -23,19 +23,26 @@ class ArticleList extends Component {
 
 
     render() {
-        if (this.props.searchRes !== null) {
-            let rows = [];
-            this.props.searchRes.forEach((element, index) => {
-                rows.push(<Article infos={element._source.fields.text} key={index} />);
-            });
-            return (
-                <div id="accordion">
-                    {rows}
-                </div>
-            );
-        }
-        else {
-            return null;
+        switch (this.props.reqStatus) {
+            case 'loading':
+                return 'Please wait...'
+                break;
+            case 'error':
+                return 'error'
+                break;
+            case 'loaded':
+                let rows = [];
+                this.props.searchRes.forEach((element, index) => {
+                    rows.push(<Article infos={element._source.fields.text} key={index} />);
+                });
+                return (
+                    <div id="accordion">
+                        {rows}
+                    </div>
+                );
+                break;
+            default:
+                return null;
         }
     }
 }

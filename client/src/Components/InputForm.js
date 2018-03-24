@@ -42,7 +42,8 @@ class InputForm extends Component {
             },
             searchRes: null,
             pageCount: 1,
-            request: ''
+            request: '',
+            requestStatus: ''
         };
     }
 
@@ -64,7 +65,7 @@ class InputForm extends Component {
     handleSearch() {
         let request = { 'must': [], 'should': [] };
         for (let key in this.state) {
-            if (this.state.hasOwnProperty(key) && !['searchRes', 'pageCount', 'request'].includes(key)) {
+            if (this.state.hasOwnProperty(key) && !['searchRes', 'pageCount', 'request', 'requestStatus'].includes(key)) {
                 if (this.state[key].queryType === 'must') {
                     if (key === 'date') {
                         if (this.state[key].value) {
@@ -94,21 +95,37 @@ class InputForm extends Component {
                 }
             }
         }
-        this.setState({request: request});
+        this.setState({ request: request });
         axios.post('/article', request)
             .then((res) => {
-                this.setState({searchRes: res.data});
+                this.setState({
+                    searchRes: res.data,
+                    requestStatus: 'loaded'
+                });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                this.setState({
+                    searchRes: err.response.data,
+                    requestStatus: 'error'
+                })
+            });
     }
 
     onPaginatedSearch() {
         axios.post(`/article/?page=${this.state.pageCount}`, this.state.request)
-        .then((res) => {
-            this.setState({searchRes: this.state.searchRes.concat(res.data)});
-        })
-        .catch((err) => console.log(err));
-        this.setState({pageCount: this.state.pageCount + 1})
+            .then((res) => {
+                this.setState({
+                    searchRes: this.state.searchRes.concat(res.data),
+                    requestStatus: 'loaded'
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    searchRes: err.response.data,
+                    requestStatus: 'error'
+                })
+            });
+        this.setState({ pageCount: this.state.pageCount + 1 })
     }
 
     render() {
@@ -116,9 +133,9 @@ class InputForm extends Component {
             <Container>
                 <Row><Col>
                     <DatepickerComponent date={this.state.date.value} onFieldChange={this.handleDate} onSelectChange={this.handleSelect} dropValue={this.state.date.queryType} />
-                    </Col></Row>
+                </Col></Row>
                 <br />
-                
+
                 <Row><Col>
                     <InputComponent fieldType="Text.Title" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.title'].queryType} />
                 </Col></Row>
@@ -136,7 +153,7 @@ class InputForm extends Component {
                 </Col></Row>
                 <br />
                 <Row><Col>
-                    <InputComponent  fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
+                    <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
                 </Col></Row>
                 <br />
                 <Row>
@@ -146,7 +163,7 @@ class InputForm extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <ArticleList searchRes={this.state.searchRes} onPaginatedSearch={this.onPaginatedSearch} />
+                        <ArticleList searchRes={this.state.searchRes} reqStatus={this.state.requestStatus} onPaginatedSearch={this.onPaginatedSearch} />
                     </Col>
                 </Row>
 
