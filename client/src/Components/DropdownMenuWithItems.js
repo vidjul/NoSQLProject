@@ -7,7 +7,7 @@ class DropdownMenuWithItems extends Component {
         if (this.props.countries !== null) {
             let rows = [];
             this.props.countries.forEach((element, index) => {
-                rows.push(<DropdownItem>{element}</DropdownItem>);
+                rows.push(<DropdownItem onClick={this.props.onSelectChange}>{element}</DropdownItem>);
             });
             return (
                 <DropdownMenu>

@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid} from 'recharts';
-import CustomizedLabel from './CustomizedLabel';
+import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid } from 'recharts';
 class Diagram extends Component {
-    constructor(props) {
-        super(props);
 
-        this.loadData = this.loadData.bind(this);
-        this.state = {
-            data: null,
-        
-        };
-    }
-
-    loadData(){
-        this.setState({data : this.props.loadData()}) ;
-    }
-
-    onlyTheFiveFirst(table){
-        if(table.length > 10)
-        {
-            return table.slice(0,10)
+    onlyTheFirst(table) {
+        if (table.length > 10) {
+            return table.slice(0, 10)
         }
-        else
-        {
+        else {
             console.log(table);
-            return table.slice(0,table.length)
+            return table.slice(0, table.length)
         }
     }
 
+    choseAcolor(table, index) {
+        var max = 0;
+        var min = 1000;
+        for (var elem of table) {
+            if (elem.doc_count > max) {
+                max = elem.doc_count
+            }
+            if (elem.doc_count < min) {
+                min = elem.doc_count
+            }
+        }
+        if (table[index].doc_count >= (max - (max - min) / 6)) {
+            return '#800000'
+        }
+        else if ((table[index].doc_count >= (max - 2 * (max - min) / 6)) && (table[index].doc_count < (max - (max - min) / 6))) {
+            return '#FF4500'
+        }
+        else if ((table[index].doc_count >= (max - 3*(max - min) / 6)) && (table[index].doc_count < (max - 2*(max - min) / 6))) {
+            return '#FFA500'
+        }
+        else if ((table[index].doc_count >= (max - 4*(max - min) / 6)) && (table[index].doc_count < (max - 3*(max - min) / 6))) {
+            return '#FFD600'
+        }
+        else if ((table[index].doc_count >= (max - 5*(max - min) / 6)) && (table[index].doc_count < (max - 4*(max - min) / 6))) {
+            return '#61bf93'
+        }
+        else {
+            return '#000000'
+        }
+
+
+    }
     render() {
         return (
             <BarChart
                 width={900}
                 height={260}
-                data={this.onlyTheFiveFirst(this.props.data)}
+                data={this.onlyTheFirst(this.props.data)}
                 margin={{ top: 5, right: 0, left: 0, bottom: 25 }}>
                 <XAxis
                     dataKey="key"
@@ -41,20 +57,20 @@ class Diagram extends Component {
                     tickSize
                     dy='25'
                 />
-                <YAxis hide />
+                <YAxis />
                 <CartesianGrid
                     vertical={false}
                     stroke="#ebf3f0"
                 />
                 <Bar
                     dataKey="doc_count"
-                    barSize={170}
+                    barSize={160}
                     fontFamily="sans-serif"
-                    label={<CustomizedLabel/>}
+
                 >
                     {
-                        this.onlyTheFiveFirst(this.props.data).map((entry, index) => (
-                            <Cell fill={this.onlyTheFiveFirst(this.props.data)[index].doc_count > 20 ? '#61bf93' : '#000000'} />
+                        this.onlyTheFirst(this.props.data).map((entry, index) => (
+                            <Cell fill={this.choseAcolor(this.onlyTheFirst(this.props.data), index)} />
                         ))
                     }
                 </Bar>

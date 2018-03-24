@@ -8,8 +8,9 @@ class InputForm extends Component {
     constructor(props) {
         super(props);
         this.handleSearch = this.handleSearch.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         this.state = {
-            place: "france",
+            place: "Country",
             searchResForPeople: [],
             searchResForTopics: [],
             requestForPeople: null,
@@ -65,6 +66,10 @@ class InputForm extends Component {
 
     }
 
+    handleSelect(e) {
+        this.setState({ place:  e.target.textContent })
+    }
+
     render() {
         return (
             <Container>
@@ -74,7 +79,7 @@ class InputForm extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <Countries style={{ marginBottom: '1rem' }} /><Button onClick={this.handleSearch} color="success" style={{ marginBottom: '1rem' }}>Search</Button>
+                        <Countries place={this.state.place} onSelectChange={this.handleSelect} style={{ marginBottom: '1rem' }} /><Button onClick={this.handleSearch} color="success" style={{ marginBottom: '1rem' }}>Search</Button>
                     </Col>
                 </Row>
 

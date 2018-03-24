@@ -20,12 +20,12 @@ export default class Example extends React.Component {
 
   render() {
     return (
-      <Dropdown style={this.props.style} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Dropdown direction="right" style={this.props.style} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
-          Country
+          {this.props.place}
         </DropdownToggle>
         
-        <DropdownMenuWithItems countries={country}/>
+        <DropdownMenuWithItems onSelectChange={this.props.onSelectChange} countries={country}/>
         
       </Dropdown>
     );
