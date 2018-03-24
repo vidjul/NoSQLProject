@@ -22,11 +22,14 @@ class InputForm extends Component {
 
     handleSearch() {
         var request = { "country": "", "data": "" };
+        var request2 = { "country": "", "data": "" };
         if (this.state.place !== null) {
             request.country = this.state.place
+            request2.country = this.state.place
         }
         else {
             request.country = "";
+            request2.country = "";
         }
 
         request.data = "people";
@@ -43,22 +46,22 @@ class InputForm extends Component {
                 this.setState({
                     requestStatus: 'error'
                 })
-            }).then(() => {
-            request.data = "topics";
-                this.setState({ requestForTopics: request });
-                axios.post('/analysis', request)
-                    .then((res) => {
-                        this.setState({
-                            searchResForTopics: res.data,
-                            requestStatus: 'loaded'
-                        });
-                    })
-                    .catch((err) => {
-                        this.setState({
-                            requestStatus: 'error'
-                        })
-                    });
+            })
+        request2.data = "topics";
+        this.setState({ requestForTopics: request2 });
+        axios.post('/analysis', request2)
+            .then((res) => {
+                this.setState({
+                    searchResForTopics: res.data,
+                    requestStatus: 'loaded'
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    requestStatus: 'error'
+                })
             });
+
 
     }
 
@@ -71,7 +74,7 @@ class InputForm extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <Countries style={{ marginBottom: '1rem' }}/><Button onClick={this.handleSearch} color="success" style={{ marginBottom: '1rem' }}>Search</Button>
+                        <Countries style={{ marginBottom: '1rem' }} /><Button onClick={this.handleSearch} color="success" style={{ marginBottom: '1rem' }}>Search</Button>
                     </Col>
                 </Row>
 
