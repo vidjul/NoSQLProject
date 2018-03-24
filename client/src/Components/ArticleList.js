@@ -26,10 +26,8 @@ class ArticleList extends Component {
         switch (this.props.reqStatus) {
             case 'loading':
                 return 'Please wait...'
-                break;
             case 'error':
                 return 'error'
-                break;
             case 'loaded':
                 let rows = [];
                 this.props.searchRes.forEach((element, index) => {
@@ -40,7 +38,6 @@ class ArticleList extends Component {
                         {rows}
                     </div>
                 );
-                break;
             default:
                 return null;
         }

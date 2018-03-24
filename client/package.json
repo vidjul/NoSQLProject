@@ -10,7 +10,8 @@
     "react-datepicker": "^1.2.2",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
-    "reactstrap": "^5.0.0-beta.2"
+    "reactstrap": "^5.0.0-beta.2",
+    "recharts": "^1.0.0-beta.10"
   },
   "scripts": {
     "start": "react-scripts start",

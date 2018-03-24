@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle } from 'reactstrap';
 import DropdownMenuWithItems from './DropdownMenuWithItems';
 import country from '../places/placesNames.js' ;
 export default class Example extends React.Component {
