@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid} from 'recharts';
 import CustomizedLabel from './CustomizedLabel';
-const data =
-    [
-        {
-            "key": "grain",
-            "doc_count": 42
-        },
-        {
-            "key": "money",
-            "doc_count": 41
-        }
-    ];
-
 class Diagram extends Component {
     constructor(props) {
         super(props);
@@ -65,8 +53,8 @@ class Diagram extends Component {
                     label={<CustomizedLabel/>}
                 >
                     {
-                        data.map((entry, index) => (
-                            <Cell fill={data[index].doc_count === 42 ? '#61bf93' : '#ededed'} />
+                        this.onlyTheFiveFirst(this.props.data).map((entry, index) => (
+                            <Cell fill={this.onlyTheFiveFirst(this.props.data)[index].doc_count > 20 ? '#61bf93' : '#000000'} />
                         ))
                     }
                 </Bar>

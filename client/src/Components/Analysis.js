@@ -71,7 +71,7 @@ class InputForm extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <Countries /><Button onClick={this.handleSearch} color="success" style={{ marginBottom: '1rem' }}>Search</Button>
+                        <Countries style={{ marginBottom: '1rem' }}/><Button onClick={this.handleSearch} color="success" style={{ marginBottom: '1rem' }}>Search</Button>
                     </Col>
                 </Row>
 

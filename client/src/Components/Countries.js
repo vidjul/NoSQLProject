@@ -20,7 +20,7 @@ export default class Example extends React.Component {
 
   render() {
     return (
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <Dropdown style={this.props.style} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
           Country
         </DropdownToggle>
