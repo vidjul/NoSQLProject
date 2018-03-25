@@ -12,30 +12,32 @@ class Article extends Component {
     this.setState({ collapse: !this.state.collapse });
   }
 
-  getColor(){
-    if(this.props.infos.body.length>2000)
-    {
-      return "danger"
+  getColor() {
+    if (this.props.infos.body) {
+      if (this.props.infos.body.length > 2000) {
+        return "danger"
+      }
+      else if (this.props.infos.body.length > 1000) {
+        return "info"
+      }
+      else {
+        return "success"
+      }
     }
-    else if (this.props.infos.body.length>1000)
-    {
-      return "info"
-    }
-    else
-    {
-      return "success"
+    else{
+      return "dark"
     }
   }
 
   render() {
     return (
       <div>
-          
-        <Button color={this.getColor()} onClick={this.toggle}  style={{ marginBottom: '1rem' }}>{this.props.infos.title}</Button>
+
+        <Button color={this.getColor()} onClick={this.toggle} style={{ marginBottom: '1rem' }}>{this.props.infos.title}</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card style={{ marginBottom: '1rem' }}>
-          <CardTitle>{this.props.infos.title}</CardTitle>
-          <CardSubtitle>{this.props.infos.dateline}</CardSubtitle>
+            <CardTitle>{this.props.infos.title}</CardTitle>
+            <CardSubtitle>{this.props.infos.dateline}</CardSubtitle>
             <CardBody>{this.props.infos.body}</CardBody>
           </Card>
         </Collapse>
