@@ -5,7 +5,7 @@
      title="Size Limit logo" src="./reuters.png"/>
 </p>
 
-This project is about creating an application on the [Reuters NoSQL database](reuters_elastic.json). We have chosen to create a web application with Node.js and React.js and to use Elasticsearch. 
+This project is about creating an application on the [Reuters NoSQL database](server/reuters_elastic.json). We have chosen to create a web application with Node.js and React.js and to use Elasticsearch. 
 
 This application has:
 * Connection features;
