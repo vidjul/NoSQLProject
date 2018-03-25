@@ -33,7 +33,7 @@ This application has:
 $ git clone https://github.com/vidjul/NoSQLProject
 ``` 
 
-* Launch the Elasticsearch.bat file.
+* Launch ElasticSearch.
 
 * Install packages into client and server folders:
 ```sh
@@ -51,8 +51,6 @@ $ npm install
 ```sh
 node index.js
 ``` 
-Then on a webpage, go to the http://localhost:3001/article/populate link. It will import all the data
-and do the mappings.
 
 * Use the command line into the client folder:
 
@@ -60,9 +58,26 @@ and do the mappings.
 npm start
 ``` 
 The app is now starting.
+When you launch the app for the first time, the screen below will be displayed.
+
+<p align="center">
+    <img width="690" height="420"
+     title="Size Limit logo" src="./loading.gif"/>
+</p>
+
+The dataset is being automatically imported in ElasticSearch.
+When the process will be finished, you wil be able to access
+to the app features.
 
 ## Search page
 ***
+
+<p align="center">
+    <img width="690" height="420"
+     title="Size Limit logo" src="./search.gif"/>
+</p>
+
+This feature allows you to input query to search in the database.
 
 Reuters NoSQL Database has the following parameters:
 * Date
@@ -74,6 +89,11 @@ Reuters NoSQL Database has the following parameters:
 
 ## Analysis page
 ***
+
+<p align="center">
+    <img width="690" height="420"
+     title="Size Limit logo" src="./analysis.gif"/>
+</p>
 
 This page contains graphs depending on the search that you have done. 
 
