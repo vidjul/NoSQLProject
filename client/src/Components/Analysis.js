@@ -74,8 +74,8 @@ class InputForm extends Component {
         return (
             <Container>
                 <Row>
-                    <Col><Diagram data={this.state.searchResForPeople} /></Col>
-                    <Col><Diagram data={this.state.searchResForTopics} /></Col>
+                    <Col><Diagram metric="Peoples" data={this.state.searchResForPeople} /></Col>
+                    <Col><Diagram metric="Topics" data={this.state.searchResForTopics} /></Col>
                 </Row>
                 <Row>
                     <Col>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid,Legend } from 'recharts';
+import { Container, Row, Col,Alert } from 'reactstrap';
+
 class Diagram extends Component {
 
     onlyTheFirst(table) {
@@ -46,11 +48,16 @@ class Diagram extends Component {
     }
     render() {
         return (
+            <Container style={{ marginBottom: '1rem' }}>
+                <Row style={{ marginBottom: '1rem' }}><Col>
             <BarChart
                 width={900}
                 height={260}
                 data={this.onlyTheFirst(this.props.data)}
-                margin={{ top: 5, right: 0, left: 0, bottom: 25 }}>
+                margin={{ top: 5, right: 0, left: 0, bottom: 25 }}
+                title= {`Corelated ${this.props.metric}`}
+
+                >
                 <XAxis
                     dataKey="key"
                     fontFamily="sans-serif"
@@ -58,6 +65,7 @@ class Diagram extends Component {
                     dy='25'
                 />
                 <YAxis />
+
                 <CartesianGrid
                     vertical={false}
                     stroke="#ebf3f0"
@@ -66,7 +74,7 @@ class Diagram extends Component {
                     dataKey="doc_count"
                     barSize={160}
                     fontFamily="sans-serif"
-
+                    name= {`Corelated ${this.props.metric}`}
                 >
                     {
                         this.onlyTheFirst(this.props.data).map((entry, index) => (
@@ -75,6 +83,14 @@ class Diagram extends Component {
                     }
                 </Bar>
             </BarChart>
+            </Col></Row>
+            <Row style={{ marginBottom: '1rem' }}><Col>
+            <Alert color={this.props.data.length > 0 ? "success" : "danger"}>
+            {`Corelated ${this.props.metric}`}
+      </Alert>                        
+            </Col></Row>
+            </Container>
+            
         );
     }
 
