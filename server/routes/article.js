@@ -12,7 +12,7 @@ const reuters = JSON.parse(fs.readFileSync('reuters_elastic.json', 'utf8'));
 // Route: BASE_URL/article
 
 router.get('/populate', (req, res) => {
-    client.indices.exists({ index: 'reuters' })
+    client.indices.exists({ index: 'reuters_davidusajeevan' })
         .then((resp) => {
             if (!resp) {
                 client.bulk({ body: reuters })
