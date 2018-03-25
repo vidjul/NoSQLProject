@@ -4,7 +4,8 @@ import InputComponent from './InputComponent';
 import DatepickerComponent from './DatepickerComponent';
 import { Container, Row, Col, Button } from 'reactstrap';
 import ArticleList from './ArticleList';
-import { PacmanLoader } from 'react-spinners';
+import Spinner from 'react-spinkit';
+
 
 
 class InputForm extends Component {
@@ -186,9 +187,8 @@ class InputForm extends Component {
                 return (
                     <Container>
                         <Row>
-                            <Col className="col-md-6 col-md-offset-3">
-                                <PacmanLoader color={'#000000'} loading={true} />
-                            </Col>
+                            <Col xs=".col-6 .col-sm-4" md={{ size: 5, offset: 1 }}/>
+                                <Spinner position="center" name="pacman" color="goldenrod" />                         
                         </Row>
                         <br />
                         <Row>
@@ -203,3 +203,4 @@ class InputForm extends Component {
 }
 
 export default InputForm;
+

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid,Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid } from 'recharts';
 import { Container, Row, Col,Alert } from 'reactstrap';
 
 class Diagram extends Component {
