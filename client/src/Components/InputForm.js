@@ -193,7 +193,8 @@ class InputForm extends Component {
                         <br />
                         <Row>
                             <Col>
-                                <p> Data is being indexed, please wait. </p>
+                                <p> Data is being indexed, please wait, it may take arround one minute </p>
+                                <p> If it last longer, make sure you have started the server and that elasticsearch is running</p>
                             </Col>
                         </Row>
                     </Container>
