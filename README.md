@@ -24,12 +24,18 @@ This application has:
 ## Usage 
 ***
 
-First, clone the project:
+* If you do not have node.js installed in your computer, download it on https://nodejs.org/en/
+
+* If you do not have npm installed in your computer, download it on https://www.npmjs.com/get-npm
+
+* First, clone the project:
 ```sh
 $ git clone https://github.com/vidjul/NoSQLProject
 ``` 
 
-Install packages into client and server folders:
+* Launch the Elasticsearch.bat file.
+
+* Install packages into client and server folders:
 ```sh
 cd client
 $ npm install
@@ -40,17 +46,19 @@ cd server
 $ npm install
 ``` 
 
-Start the app:
-```sh
-cd server
-$ node index.js
-``` 
+* Use the command line into the server folder:
 
 ```sh
-cd client
-$ npm start
+node index.js
 ``` 
+Then on a webpage, go to the http://localhost:3001/article/populate link. It will import all the data
+and do the mappings.
 
+* Use the command line into the client folder:
+
+```sh
+npm start
+``` 
 The app is now starting.
 
 ## Search page
