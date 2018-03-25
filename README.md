@@ -19,6 +19,7 @@ This application has:
 * [Usage](#usage)
 * [Search Page](#search-page)
 * [Analysis Page](#analysis-page)
+* [More Details](#more-details)
 
 ## Usage 
 ***
@@ -67,3 +68,9 @@ Reuters NoSQL Database has the following parameters:
 ***
 
 This page contains graphs depending on the search that you have done. 
+
+## More details
+***
+
+For more details, please see the [Report](./Report.pdf). 
+
