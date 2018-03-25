@@ -4,7 +4,7 @@ import InputComponent from './InputComponent';
 import DatepickerComponent from './DatepickerComponent';
 import { Container, Row, Col, Button } from 'reactstrap';
 import ArticleList from './ArticleList';
-
+import { PacmanLoader } from 'react-spinners';
 
 
 class InputForm extends Component {
@@ -43,8 +43,19 @@ class InputForm extends Component {
             searchRes: null,
             pageCount: 1,
             request: '',
-            requestStatus: ''
+            requestStatus: '',
+            indexStatus: ''
         };
+    }
+
+    componentDidMount() {
+        axios.get('/article/populate')
+            .then((res) => {
+                this.setState({ indexStatus: res.data.status })
+            })
+            .catch((err) => {
+                this.setState({ indexStatus: err.response.data })
+            })
     }
 
     handleChange(e) {
@@ -65,7 +76,7 @@ class InputForm extends Component {
     handleSearch() {
         let request = { 'must': [], 'should': [] };
         for (let key in this.state) {
-            if (this.state.hasOwnProperty(key) && !['searchRes', 'pageCount', 'request', 'requestStatus'].includes(key)) {
+            if (this.state.hasOwnProperty(key) && !['searchRes', 'pageCount', 'request', 'requestStatus', 'indexStatus'].includes(key)) {
                 if (this.state[key].queryType === 'must') {
                     if (key === 'date') {
                         if (this.state[key].value) {
@@ -129,46 +140,65 @@ class InputForm extends Component {
     }
 
     render() {
-        return (
-            <Container>
-                <Row><Col>
-                    <DatepickerComponent date={this.state.date.value} onFieldChange={this.handleDate} onSelectChange={this.handleSelect} dropValue={this.state.date.queryType} />
-                </Col></Row>
-                <br />
+        switch (this.state.indexStatus) {
+            case 'exists':
+                return (
+                    <Container>
+                        <Row><Col>
+                            <DatepickerComponent date={this.state.date.value} onFieldChange={this.handleDate} onSelectChange={this.handleSelect} dropValue={this.state.date.queryType} />
+                        </Col></Row>
+                        <br />
 
-                <Row><Col>
-                    <InputComponent fieldType="Text.Title" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.title'].queryType} />
-                </Col></Row>
-                <br />
-                <Row><Col>
-                    <InputComponent fieldType="Text.Body" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.body'].queryType} />
-                </Col></Row>
-                <br />
-                <Row><Col>
-                    <InputComponent fieldType="Places" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.places.queryType} />
-                </Col></Row>
-                <br />
-                <Row><Col>
-                    <InputComponent fieldType="Topics" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.topics.queryType} />
-                </Col></Row>
-                <br />
-                <Row><Col>
-                    <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
-                </Col></Row>
-                <br />
-                <Row>
-                    <Col>
-                        <Button color="success" onClick={this.handleSearch} style={{ marginBottom: '1rem' }}>Search</Button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <ArticleList searchRes={this.state.searchRes} reqStatus={this.state.requestStatus} onPaginatedSearch={this.onPaginatedSearch} />
-                    </Col>
-                </Row>
+                        <Row><Col>
+                            <InputComponent fieldType="Text.Title" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.title'].queryType} />
+                        </Col></Row>
+                        <br />
+                        <Row><Col>
+                            <InputComponent fieldType="Text.Body" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state['text.body'].queryType} />
+                        </Col></Row>
+                        <br />
+                        <Row><Col>
+                            <InputComponent fieldType="Places" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.places.queryType} />
+                        </Col></Row>
+                        <br />
+                        <Row><Col>
+                            <InputComponent fieldType="Topics" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.topics.queryType} />
+                        </Col></Row>
+                        <br />
+                        <Row><Col>
+                            <InputComponent fieldType="People" onFieldChange={this.handleChange} onSelectChange={this.handleSelect} dropValue={this.state.people.queryType} />
+                        </Col></Row>
+                        <br />
+                        <Row>
+                            <Col>
+                                <Button color="success" onClick={this.handleSearch} style={{ marginBottom: '1rem' }}>Search</Button>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <ArticleList searchRes={this.state.searchRes} reqStatus={this.state.requestStatus} onPaginatedSearch={this.onPaginatedSearch} />
+                            </Col>
+                        </Row>
 
-            </Container>
-        );
+                    </Container>
+                );
+            default:
+                return (
+                    <Container>
+                        <Row>
+                            <Col className="col-md-6 col-md-offset-3">
+                                <PacmanLoader color={'#000000'} loading={true} />
+                            </Col>
+                        </Row>
+                        <br />
+                        <Row>
+                            <Col>
+                                <p> Data is being indexed, please wait. </p>
+                            </Col>
+                        </Row>
+                    </Container>
+                );
+        }
     }
 }
 

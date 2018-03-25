@@ -12,11 +12,25 @@ const reuters = JSON.parse(fs.readFileSync('reuters_elastic.json', 'utf8'));
 // Route: BASE_URL/article
 
 router.get('/populate', (req, res) => {
-    client.bulk({ body: reuters })
-        .then(() => client.indices.putMapping(mappingJson))
-        .then((resp) => res.send({'message': 'Data has been populated!'}))
-        .catch((err) => res.send(err))
-})
+    client.indices.exists({ index: 'reuters' })
+        .then((resp) => {
+            if (!resp) {
+                client.bulk({ body: reuters })
+                    .then(() => client.indices.putMapping(mappingJson))
+                    .then((resp) => res.send({
+                        'message': 'Data has been populated!',
+                        'status': 'exists'
+                    }))
+                    .catch((err) => res.send(err))
+            }
+            res.send({
+                'message': 'Data exists',
+                'status': 'exists'
+            })
+        })
+        .catch((err) => res.send(err));
+
+});
 
 router.post('/', (req, res) => {
 
